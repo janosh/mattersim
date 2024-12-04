@@ -75,12 +75,13 @@ python setup.py build_ext --inplace
 
 ### A minimal test
 ```python
+import os
 import torch
 from ase.build import bulk
 from ase.units import GPa
 from mattersim.forcefield import MatterSimCalculator
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 print(f"Running MatterSim on {device}")
 
 si = bulk("Si", "diamond", a=5.43)
